@@ -6,6 +6,14 @@
   <meta name="description" content="براين سايت - شركة رائدة في تقديم حلول الذكاء الاصطناعي المتقدمة للرعاية الصحية والمالية والتعليم" />
   <meta name="keywords" content="ذكاء اصطناعي، رعاية صحية، تعليم، حلول مالية، تقنية، براين سايت" />
   <title>BrainSAIT - حلول الذكاء الاصطناعي</title>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'YOUR-GA-ID');
+  </script>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="additional-styles.css" />
   <!-- Noto Naskh Arabic Font -->
@@ -21,28 +29,28 @@
   <nav class="main-nav" role="navigation" aria-label="القائمة الرئيسية">
     <div class="container">
       <div class="logo">
-        <a href="#"><span class="highlight">براين</span> سايت</a>
+        <a href="#"><span class="highlight" data-i18n="nav.brand.first">براين</span> <span data-i18n="nav.brand.last">سايت</span></a>
       </div>
       <button class="menu-toggle" id="mobile-menu" aria-label="تبديل القائمة" aria-expanded="false">
         <i class="fas fa-bars" aria-hidden="true"></i>
       </button>
       <ul class="nav-menu">
-        <li><a href="#" class="active" aria-current="page">الرئيسية</a></li>
-        <li><a href="#about">من نحن</a></li>
-        <li><a href="#services">خدماتنا</a></li>
-        <li><a href="#solutions">حلولنا</a></li>
-        <li><a href="#contact" class="btn-contact">تواصل معنا</a></li>
+        <li><a href="#" class="active" aria-current="page" data-i18n="nav.home">الرئيسية</a></li>
+        <li><a href="#about" data-i18n="nav.about">من نحن</a></li>
+        <li><a href="#services" data-i18n="nav.services">خدماتنا</a></li>
+        <li><a href="#solutions" data-i18n="nav.solutions">حلولنا</a></li>
+        <li><a href="#contact" class="btn-contact" data-i18n="nav.contact">تواصل معنا</a></li>
       </ul>
     </div>
   </nav>
 
   <header class="hero">
     <div class="container">
-      <h1>براين سايت</h1>
-      <p class="tagline">حلول رقمية متقدمة للذكاء الاصطناعي والرعاية الصحية</p>
+      <h1 data-i18n="hero.title">براين سايت</h1>
+      <p class="tagline" data-i18n="hero.tagline">حلول رقمية متقدمة للذكاء الاصطناعي والرعاية الصحية</p>
       <div class="cta-buttons">
-        <a href="#services" class="btn btn-primary">استكشاف خدماتنا</a>
-        <a href="#contact" class="btn btn-outline">تواصل معنا</a>
+        <a href="#services" class="btn btn-primary" data-i18n="hero.cta.explore">استكشاف خدماتنا</a>
+        <a href="#contact" class="btn btn-outline" data-i18n="hero.cta.contact">تواصل معنا</a>
       </div>
     </div>
   </header>
@@ -216,30 +224,30 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="#"><span class="highlight">براين</span> سايت</a>
-          <p>حلول ذكية لمستقبل أفضل</p>
+          <a href="#"><span class="highlight" data-i18n="nav.brand.first">براين</span> <span data-i18n="nav.brand.last">سايت</span></a>
+          <p data-i18n="footer.tagline">حلول ذكية لمستقبل أفضل</p>
         </div>
         <div class="footer-links">
-          <h4>روابط سريعة</h4>
+          <h4 data-i18n="footer.quicklinks">روابط سريعة</h4>
           <ul>
-            <li><a href="#">الرئيسية</a></li>
-            <li><a href="#about">من نحن</a></li>
-            <li><a href="#services">خدماتنا</a></li>
-            <li><a href="#solutions">حلولنا</a></li>
+            <li><a href="#" data-i18n="nav.home">الرئيسية</a></li>
+            <li><a href="#about" data-i18n="nav.about">من نحن</a></li>
+            <li><a href="#services" data-i18n="nav.services">خدماتنا</a></li>
+            <li><a href="#solutions" data-i18n="nav.solutions">حلولنا</a></li>
           </ul>
         </div>
         <div class="footer-newsletter">
-          <h4>النشرة البريدية</h4>
-          <p>اشترك للحصول على آخر الأخبار والتحديثات</p>
-          <form class="newsletter-form">
-            <label for="newsletter-email" class="sr-only">البريد الإلكتروني للنشرة البريدية</label>
-            <input type="email" id="newsletter-email" name="newsletter-email" placeholder="البريد الإلكتروني" required>
+          <h4 data-i18n="newsletter.title">النشرة البريدية</h4>
+          <p data-i18n="newsletter.description">اشترك للحصول على آخر الأخبار والتحديثات</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <label for="newsletter-email" class="sr-only" data-i18n="newsletter.placeholder">البريد الإلكتروني للنشرة البريدية</label>
+            <input type="email" id="newsletter-email" name="newsletter-email" data-i18n="newsletter.placeholder" placeholder="البريد الإلكتروني" required>
             <button type="submit" aria-label="اشتراك"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
           </form>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 BrainSAIT LTD - جميع الحقوق محفوظة</p>
+        <p data-i18n="footer.copyright">&copy; 2025 BrainSAIT LTD - جميع الحقوق محفوظة</p>
         <div class="language-switcher" aria-label="مبدل اللغة">
           <a href="#" class="active" lang="ar" hreflang="ar">العربية</a>
           <a href="#" lang="en" hreflang="en">English</a>
@@ -248,6 +256,8 @@
     </div>
   </footer>
 
+  <!-- Load translations -->
+  <script src="languages/en.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
