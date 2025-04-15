@@ -1,0 +1,339 @@
+/* تنسيقات إضافية للموقع */
+/* تنسيقات وكيل المحادثة الذكي */
+.ai-chat-button {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ai-chat-button:hover {
+  transform: scale(1.1);
+  background: var(--primary-hover);
+}
+
+.ai-chat-window {
+  position: fixed;
+  bottom: 100px;
+  left: 30px;
+  width: 350px;
+  height: 450px;
+  background: var(--dark-surface);
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-header {
+  background: var(--primary-color);
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header span {
+  font-weight: 600;
+}
+
+.close-chat {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  max-width: 80%;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 15px;
+  line-height: 1.4;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: var(--dark-surface-2);
+  border-bottom-left-radius: 5px;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--primary-color);
+  color: white;
+  border-bottom-right-radius: 5px;
+}
+
+.chat-input {
+  padding: 15px;
+  background: var(--dark-surface-2);
+  display: flex;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px 15px;
+  background: var(--dark-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: var(--text-light);
+  outline: none;
+}
+
+.chat-input input:focus {
+  border-color: var(--primary-color);
+}
+
+.send-message {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-message:hover {
+  background: var(--primary-hover);
+}
+
+/* تنسيقات إضافية للنافذة المنبثقة */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.popup.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-content {
+  background: var(--dark-surface);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.popup.active .popup-content {
+  transform: translateY(0);
+}
+
+.close-popup {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.popup h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+/* تنسيقات رسالة النجاح */
+.success-message {
+  background: rgba(10, 150, 10, 0.2);
+  color: #2ECC71;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+
+/* تحسينات في تأثيرات ظهور العناصر عند التمرير */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* تنسيقات إضافية للقائمة عند التمرير */
+.main-nav.scrolled {
+  padding: 0.5rem 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* تنسيقات أيقونة التبديل في وضع المحمول */
+.menu-toggle.active i::before {
+  content: "\f00d"; /* تغيير الأيقونة إلى X عند التفعيل */
+}
+
+/* تحسينات النموذج */
+.contact-form .btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+  opacity: 0.5;
+}
+
+/* تحسينات بطاقات الخدمات */
+.service-card:hover .service-icon {
+  transform: scale(1.15);
+  color: white;
+}
+
+.service-card .service-icon {
+  transition: all 0.3s ease;
+}
+
+/* تنسيقات الشعارات الراعية */
+.sponsors-section {
+  padding: 3rem 0;
+  background: var(--dark-surface);
+}
+
+.sponsors-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.sponsor-item {
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.sponsor-item img {
+  max-width: 120px;
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.sponsor-item:hover img {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* تعزيز المظهر في الوضع المظلم للنموذج */
+.form-group input,
+.form-group textarea {
+  background: var(--dark-bg);
+}
+
+/* تحسين مظهر الأزرار عند الضغط عليها */
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* تحسين القائمة عند التمرير */
+.main-nav.scrolled {
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* تنسيقات إضافية لتغيير اللغة */
+html[lang="en"] {
+  direction: ltr;
+}
+
+/* تنسيقات متعلقة بالصور الخلفية */
+.parallax-section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* تنسيقات الفيديو الخلفي */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.video-background video {
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(16, 16, 16, 0.7);
+}
+
+/* تنسيقات لشريط التقدم العلوي */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--primary-color);
+  z-index: 9999;
+  width: 0;
+  transition: width 0.2s ease;
+}
