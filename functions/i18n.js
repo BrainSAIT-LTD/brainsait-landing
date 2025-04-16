@@ -1,5 +1,6 @@
 // Edge function for internationalization
-import { HTMLRewriter } from '@cloudflare/html-rewriter';
+// HTMLRewriter is provided by the Cloudflare Workers runtime environment
+// No import needed as it's available globally
 
 export async function onRequest(context) {
   // Get the original response
