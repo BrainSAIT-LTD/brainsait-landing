@@ -6,12 +6,28 @@ compatibility_date = "2025-04-16"
 binding = "MEDIA" 
 bucket_name = "brainsait-media"
 
+name = "brainsait-landing"
+main = "./build/index.js"
+compatibility_date = "2025-04-16"
+
 # Define environment variables here if needed
 [vars]
 SITE_URL = "https://brainsait.io"
 SUPABASE_URL = "${SUPABASE_URL}"
 SUPABASE_ANON_KEY = "${SUPABASE_ANON_KEY}"
 SUPABASE_SERVICE_KEY = "${SUPABASE_SERVICE_KEY}"
+
+# Define routes for Functions
+[routes]
+pattern = "/api/*"
+script = "api/[segment]"
+
+[site]
+bucket = "./build"
+entry-point = "functions"
+
+[build]
+command = "mkdir -p build && cp -r *.html *.css *.js *.png *.xml _headers _redirects _routes.json functions build/"
 AI_API_KEY = "${AI_API_KEY}"
 DEFAULT_LANGUAGE = "ar"
 ENABLE_ANALYTICS = "true"
