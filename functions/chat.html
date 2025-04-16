@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrainSAIT Chat Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #ffffff;
+      padding: 20px;
+    }
+    .chat-box {
+      max-width: 600px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    select, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      background: #2a2a2a;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-box">
+    <h2>Welcome to BrainSAIT</h2>
+
+    <label for="lang">Choose your preferred language:</label>
+    <select id="lang">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="zh">中文</option>
+    </select>
+
+    <label for="userType">What best describes you?</label>
+    <select id="userType">
+      <option>Healthcare Professional</option>
+      <option>Developer</option>
+      <option>Investor</option>
+      <option>Student</option>
+      <option>Job Seeker</option>
+      <option>Business Owner</option>
+      <option>Other</option>
+    </select>
+
+    <label for="interest">What are you interested in?</label>
+    <select id="interest">
+      <option>BrainRCM</option>
+      <option>VoiceLinc</option>
+      <option>BrainAI</option>
+      <option>DataLinc</option>
+      <option>TechPlace</option>
+      <option>FinancePlace</option>
+      <option>SmartCityPlace</option>
+    </select>
+
+    <label for="intent">What do you want to do today?</label>
+    <select id="intent">
+      <option value="learn">Learn More</option>
+      <option value="invest">Invest or Subscribe</option>
+      <option value="collaborate">Partner with us</option>
+      <option value="demo">Book a Demo</option>
+      <option value="support">Request Support</option>
+      <option value="join">Join a Project</option>
+    </select>
+
+    <button onclick="submitChat()">Submit</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function submitChat() {
+      const payload = {
+        user_id: crypto.randomUUID(),
+        attributes: {
+          language: document.getElementById('lang').value,
+          user_type: document.getElementById('userType').value,
+          project_interest: document.getElementById('interest').value,
+          intent: document.getElementById('intent').value,
+          location: "Auto-detect or ask", // Placeholder
+          age: 30, // Default, can add input
+          interests: [document.getElementById('interest').value]
+        }
+      };
+
+      document.getElementById('output').innerText =
+        `Thank you! You're interested in ${payload.attributes.project_interest},
+        and we'll connect you for "${payload.attributes.intent}" in your language (${payload.attributes.language}).`;
+
+      // Here you can add the function call to your backend or GPT-4 API
+      console.log("Function call payload:", payload);
+    }
+  </script>
+</body>
+</html>

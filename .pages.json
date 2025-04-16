@@ -1,0 +1,22 @@
+{
+  "build": {
+    "baseDirectory": "build",
+    "command": "mkdir -p build && cp *.html *.css *.js *.png *.xml _headers _redirects _routes.json build/ && cp -r functions build/",
+    "publicDirectory": "build",
+    "rootDirectory": "."
+  },
+  "deployment": {
+    "routes": [
+      { "pattern": "/api/*", "function": "api/:splat" },
+      { "pattern": "/media/*", "function": "media/[[all]]" }
+    ],
+    "environment": {
+      "SITE_URL": "https://brainsait.io",
+      "DEFAULT_LANGUAGE": "ar"
+    }
+  },
+  "compatibility": {
+    "date": "2025-04-16",
+    "flags": ["nodejs_compat"]
+  }
+}

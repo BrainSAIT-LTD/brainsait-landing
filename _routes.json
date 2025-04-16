@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/static/*",
+    "/favicon.ico",
+    "/*.css",
+    "/*.js"
+  ],
+  "routes": [
+    {
+      "pattern": "/media/*",
+      "function": "media/[[all]]"
+    },
+    {
+      "pattern": "/api/chat",
+      "function": "api/chat/index"
+    },
+    {
+      "pattern": "/api/segment",
+      "function": "api/segment/index"
+    },
+    {
+      "pattern": "/*",
+      "middlewares": ["i18n"]
+    },
+    {
+      "pattern": "/healthcare/*",
+      "redirect": "/domains/healthcare",
+      "code": 302
+    },
+    {
+      "pattern": "/automation/*",
+      "redirect": "/domains/automation",
+      "code": 302
+    },
+    {
+      "pattern": "/education/*",
+      "redirect": "/domains/education",
+      "code": 302
+    },
+    {
+      "pattern": "/content-creation/*",
+      "redirect": "/domains/content-creation",
+      "code": 302
+    },
+    {
+      "pattern": "/ai-tech/*",
+      "redirect": "/domains/ai-tech",
+      "code": 302
+    },
+    {
+      "pattern": "/finance/*",
+      "redirect": "/domains/finance",
+      "code": 302
+    },
+    {
+      "pattern": "/iot/*",
+      "redirect": "/domains/iot",
+      "code": 302
+    }
+  ]
+}

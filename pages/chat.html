@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrainSAIT Chat Interface</title>
+  <style>
+    :root {
+      --primary-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+      --secondary-bg: rgba(22, 33, 62, 0.95);
+      --accent-color: linear-gradient(90deg, #2ecc71, #3498db);
+      --text-color: #ffffff;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --input-bg: rgba(255, 255, 255, 0.1);
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      --border-radius: 20px;
+      --button-bg: linear-gradient(135deg, #2ecc71, #3498db);
+      --message-user-bg: rgba(46, 204, 113, 0.2);
+      --message-bot-bg: rgba(52, 152, 219, 0.2);
+    }
+    
+    body {
+      font-family: "Noto Naskh Arabic", Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 60px;
+      margin-left: 15px;
+    }
+    
+    .logo h1 {
+      font-size: 2em;
+      margin: 0;
+      background: var(--accent-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s;
+      color: var(--text-color);
+    }
+    
+    .tab.active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background: var(--secondary-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+    
+    /* Chat interface */
+    .chat-view {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .chat-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .chat-header h2 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      min-height: 300px;
+    }
+    
+    .message {
+      max-width: 80%;
+      padding: 15px;
+      border-radius: 18px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .message.bot {
+      align-self: flex-start;
+      background: var(--message-bot-bg);
+      border-bottom-right-radius: 5px;
+    }      .message.user {
+      align-self: flex-end;
+      background: var(--message-user-bg);
+      border-bottom-left-radius: 5px;
+    }
+    
+    .typing-dots {
+      display: flex;
+      gap: 5px;
+      padding: 5px;
+    }
+    
+    .typing-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-color);
+      animation: typingDot 1.4s infinite;
+    }
+    
+    .typing-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .typing-dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes typingDot {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+      30% {
+        transform: translateY(-5px);
+        opacity: 1;
+      }
+    }
+    
+    /* Form interface */
+    .form-view {
+      display: none;
+      padding: 20px;
+    }
+    
+    .form-view.active {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    
+    select, input, button {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      background: var(--input-bg);
+      color: var(--text-color);
+      font-size: 16px;
+      font-family: inherit;
+    }
+    
+    select:focus, input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.5);
+    }
+    
+    button {
+      background: var(--button-bg);
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+      margin-top: 20px;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+    }
+    
+    .chat-input {
+      padding: 20px;
+      display: flex;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .chat-input input {
+      flex: 1;
+    }
+    
+    .send-button {
+      width: 50px;
+      flex-shrink: 0;
+      height: 50px;
+      border-radius: 50%;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .language-selector {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    
+    .language-selector select {
+      width: auto;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .message {
+        max-width: 90%;
+      }
+    }
+  </style>
+  <!-- Noto Naskh Arabic Font -->
+  <link rel="stylesheet" href="https://use.typekit.net/gcb6fia.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="language-selector">
+    <select id="languageSelect">
+      <option value="ar">العربية</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <img src="/favicon.png" alt="BrainSAIT Logo">
+        <h1>BrainSAIT</h1>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="chat">المحادثة المباشرة</div>
+      <div class="tab" data-tab="form">نموذج الاهتمامات</div>
+    </div>
+
+    <div class="content">
+      <!-- Chat view -->
+      <div class="chat-view" id="chatView">
+        <div class="chat-header">
+          <h2>المساعد الذكي</h2>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="message bot">
+            <div class="message-content">
+              مرحباً! أنا المساعد الذكي لبراين سايت. كيف يمكنني مساعدتك اليوم؟
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا...">
+          <button class="send-button" id="sendButton">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Form view -->
+      <div class="form-view" id="formView">
+        <h2>أخبرنا عن اهتماماتك</h2>
+        
+        <div class="form-group">
+          <label for="userType">ما الذي يصفك بشكل أفضل؟</label>
+          <select id="userType">
+            <option value="healthcare">متخصص رعاية صحية</option>
+            <option value="developer">مطور</option>
+            <option value="investor">مستثمر</option>
+            <option value="student">طالب</option>
+            <option value="jobSeeker">باحث عن عمل</option>
+            <option value="businessOwner">صاحب عمل</option>
+            <option value="other">أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="interest">ما الذي تهتم به؟</label>
+          <select id="interest">
+            <option value="healthcare">حلول الرعاية الصحية</option>
+            <option value="ai-tech">تقنيات الذكاء الاصطناعي</option>
+            <option value="education">حلول التعليم</option>
+            <option value="finance">الحلول المالية</option>
+            <option value="iot">إنترنت الأشياء</option>
+            <option value="automation">أتمتة الأعمال</option>
+            <option value="content-creation">إنشاء المحتوى</option>
+          </select>
+        </div>        <div class="form-group">
+          <label for="intent">ماذا تريد أن تفعل اليوم؟</label>
+          <select id="intent">
+            <option value="learn">معرفة المزيد</option>
+            <option value="invest">الاستثمار</option>
+            <option value="subscribe">الاشتراك</option>
+            <option value="collaborate">التعاون معنا</option>
+            <option value="demo">حجز عرض تجريبي</option>
+            <option value="support">طلب الدعم</option>
+            <option value="join">الانضمام إلى مشروع</option>
+          </select>
+        </div>
+
+        <button id="submitForm">إرسال</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Elements
+      const tabs = document.querySelectorAll('.tab');
+      const chatView = document.getElementById('chatView');
+      const formView = document.getElementById('formView');
+      const chatMessages = document.getElementById('chatMessages');
+      const messageInput = document.getElementById('messageInput');
+      const sendButton = document.getElementById('sendButton');
+      const submitFormButton = document.getElementById('submitForm');
+      const languageSelect = document.getElementById('languageSelect');
+      
+      // Tab switching
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabName = tab.getAttribute('data-tab');
+          
+          // Update active tab
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          // Show corresponding view
+          if (tabName === 'chat') {
+            chatView.style.display = 'flex';
+            formView.style.display = 'none';
+          } else {
+            chatView.style.display = 'none';
+            formView.style.display = 'block';
+          }
+        });
+      });
+      
+      // Generate session ID
+      const sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+      
+      // Send chat message function
+      async function sendChatMessage() {
+        const messageText = messageInput.value.trim();
+        if (!messageText) return;
+        
+        // Add user message to chat
+        addMessage(messageText, 'user');
+        messageInput.value = '';
+        
+        try {
+          // Show typing indicator
+          const typingIndicator = document.createElement('div');
+          typingIndicator.className = 'message bot typing';
+          typingIndicator.innerHTML = '<div class="message-content"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+          chatMessages.appendChild(typingIndicator);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          
+          // Send message to API
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: messageText,
+              sessionId: sessionId,
+              language: languageSelect.value
+            })
+          });
+          
+          // Remove typing indicator
+          if (typingIndicator.parentNode) {
+            chatMessages.removeChild(typingIndicator);
+          }
+          
+          if (response.ok) {
+            const data = await response.json();
+            
+            // Add bot response to chat
+            addMessage(data.text, 'bot');
+            
+            // Add domain suggestions if any
+            if (data.domain && data.recommendedLinks && data.recommendedLinks.length > 0) {
+              // Add suggestions here
+            }
+          } else {
+            // Handle error
+            addMessage('عذراً، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.', 'bot');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          addMessage('عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.', 'bot');
+        }
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Form submission function
+      async function submitForm() {
+        const userType = document.getElementById('userType').value;
+        const interest = document.getElementById('interest').value;
+        const intent = document.getElementById('intent').value;
+        
+        const payload = {
+          user_id: sessionId,
+          attributes: {
+            language: languageSelect.value,
+            user_type: userType,
+            project_interest: interest,
+            intent: intent,
+            location: "Auto-detect",
+            age: 30,
+            interests: [interest]
+          }
+        };
+        
+        try {
+          // Show processing message
+          addMessage('جاري معالجة طلبك...', 'bot');
+          
+          // Switch to chat view
+          tabs[0].click();
+          
+          // Send form data to API
+          const response = await fetch('/api/segment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            
+            // Add personalized response based on segmentation
+            let responseMessage;
+            
+            switch(interest) {
+              case 'healthcare':
+                responseMessage = 'شكراً لاهتمامك بحلول الرعاية الصحية لدينا! سنقوم بتوجيهك إلى فريقنا المتخصص في هذا المجال.';
+                break;
+              case 'ai-tech':
+                responseMessage = 'رائع! يسعدنا اهتمامك بتقنيات الذكاء الاصطناعي. لدينا العديد من الحلول المبتكرة في هذا المجال.';
+                break;
+              case 'education':
+                responseMessage = 'التعليم هو أحد مجالات تخصصنا! يمكننا تقديم حلول تعليمية مبتكرة تناسب احتياجاتك.';
+                break;
+              default:
+                responseMessage = `شكراً لتقديمك هذه المعلومات. سنقوم بتوجيهك إلى أفضل الحلول المناسبة لك في مجال ${interest}.`;
+            }
+            
+            addMessage(responseMessage, 'bot');
+          } else {
+            // Handle error
+            addMessage('عذراً، حدث خطأ أثناء معالجة المعلومات. يرجى المحاولة مرة أخرى.', 'bot');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          addMessage('عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.', 'bot');
+        }
+      }
+      
+      // Add message to chat
+      function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        messageDiv.innerHTML = `
+          <div class="message-content">
+            ${text}
+          </div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Event listeners
+      sendButton.addEventListener('click', sendChatMessage);
+      messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendChatMessage();
+        }
+      });
+      submitFormButton.addEventListener('click', submitForm);
+      
+      // Language switcher
+      languageSelect.addEventListener('change', () => {
+        const lang = languageSelect.value;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr';
+        
+        // You could fetch translations here
+        // For now, we'll just reload with lang parameter
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+      });
+      
+      // Check URL for language parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      if (langParam) {
+        languageSelect.value = langParam;
+        document.documentElement.lang = langParam;
+        document.documentElement.dir = langParam === 'ar' || langParam === 'he' ? 'rtl' : 'ltr';
+      }
+    });
+  </script>
+</body>
+</html>
