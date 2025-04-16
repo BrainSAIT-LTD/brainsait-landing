@@ -1,0 +1,34 @@
+name: Brainsait CI/CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Build Docker Image
+        run: |
+          docker build -t brainsait.azurecr.io/brainsait-app:${{ github.sha }} .
+      
+      - name: Push to Azure Container Registry
+        run: |
+          az acr login --name brainsait
+          docker push brainsait.azurecr.io/brainsait-app:${{ github.sha }}
+      
+      - name: Deploy to AKS
+        uses: azure/aks-set-context@v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          cluster-name: brainsait-cluster
+          resource-group: brainsait-group
+      - run: |
+          kubectl set image deployment/brainsait-app brainsait-container=brainsait.azurecr.io/brainsait-app:${{ github.sha }}

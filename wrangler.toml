@@ -1,0 +1,19 @@
+name = "brainsait-landing"
+compatibility_date = "2025-04-16"
+
+# R2 bucket configuration for media assets
+[[r2_buckets]]
+binding = "MEDIA" 
+bucket_name = "brainsait-media"
+
+# Define environment variables here if needed
+[vars]
+SITE_URL = "https://brainsait.io"
+AI_API_KEY = "${AI_API_KEY}"
+DEFAULT_LANGUAGE = "ar"
+ENABLE_ANALYTICS = "true"
+
+# KV namespace for storing user sessions and chat history
+[[kv_namespaces]]
+binding = "CHAT_SESSIONS"
+id = "your-kv-namespace-id"
