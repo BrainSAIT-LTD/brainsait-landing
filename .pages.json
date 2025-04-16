@@ -1,7 +1,7 @@
 {
   "build": {
     "baseDirectory": "build",
-    "command": "cp -r functions build/ && cp _headers build/ && cp _redirects build/ && cp _routes.json build/",
+    "command": "mkdir -p build && cp -r *.html *.css *.js *.png *.xml _headers _redirects _routes.json functions build/",
     "publicDirectory": "build",
     "rootDirectory": "."
   },
