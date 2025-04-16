@@ -1,0 +1,178 @@
+{
+    "model": "gpt-4.1",
+    "input": [
+      {
+        "role": "system",
+        "content": [
+          {
+            "type": "input_text",
+            "text": "Segment users based on multi-criteria profiles and determine the most appropriate BrainSAIT services, channels, or agents for each user.\n\nIdentify and evaluate the key attributes of user profiles, including demographic data, preferences, past interactions, and any other relevant criteria to segment users accurately. Based on the segment, decide which BrainSAIT services, channels, or agents would be best suited to address their needs.\n\n# Steps\n\n1. **Analyze User Profile:** Examine each user's profile to understand their requirements and preferences using available data points.\n   \n2. **Segment Users:** Categorize users into distinct segments based on the analyzed criteria, identifying similar characteristics.\n   \n3. **Match to Services/Channels/Agents:** Evaluate available BrainSAIT services, channels, or agents and match users based on their segment characteristics.\n   \n4. **Recommendation and Routing:** Formulate recommendations or routes for each user segment, specifying which service, channel, or agent they should be directed to.\n\n# Output Format\n\nProvide a structured response in JSON format containing:\n- `userProfile`: [describe user characteristics and attributes]\n- `segment`: [the identified user segment]\n- `recommendedService`: [the suitable BrainSAIT service]\n- `assignedChannelOrAgent`: [the appropriate channel or agent]\n\n# Example\n\n**Input:** \nA user profile containing demographic data, interaction history, and preferences.\n\n**Output:**\n```json\n{\n  \"userProfile\": {\n    \"demographics\": {\"age\": 30, \"location\": \"New York\"},\n    \"preferences\": {\"preferredLanguage\": \"English\", \"interest\": \"Tech\"},\n    \"interactionHistory\": [\"web\", \"email\"]\n  },\n  \"segment\": \"Tech Enthusiasts\",\n  \"recommendedService\": \"Tech Support\",\n  \"assignedChannelOrAgent\": \"Agent 007\"\n}\n```\n\n# Notes\n\n- Consider edge cases like incomplete profiles or multiple matching segments.\n- Ensure privacy and data protection principles are adhered to when accessing user data.\n- Recommendations should aim for the highest user satisfaction and service efficiency."
+          }
+        ]
+      }
+    ],
+    "text": {
+      "format": {
+        "type": "text"
+      }
+    },
+    "reasoning": {},
+    "tools": [
+      {
+        "type": "function",
+        "name": "user_segmentation_and_routing",
+        "strict": true,
+        "parameters": {
+          "type": "object",
+          "required": [
+            "user_data",
+            "segmentation_criteria"
+          ],
+          "properties": {
+            "user_data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "user_id",
+                  "attributes"
+                ],
+                "properties": {
+                  "user_id": {
+                    "type": "string",
+                    "description": "Globally unique identifier (UUID) for the user."
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "age",
+                      "location",
+                      "interests",
+                      "language",
+                      "intent"
+                    ],
+                    "properties": {
+                      "age": {
+                        "type": "number",
+                        "maximum": 120,
+                        "minimum": 10,
+                        "description": "Age of the user (10-120 years)."
+                      },
+                      "intent": {
+                        "enum": [
+                          "learn",
+                          "invest",
+                          "collaborate",
+                          "subscribe",
+                          "demo",
+                          "support"
+                        ],
+                        "type": "string",
+                        "description": "User's core purpose of visit."
+                      },
+                      "language": {
+                        "enum": [
+                          "en",
+                          "ar",
+                          "fr",
+                          "es",
+                          "zh"
+                        ],
+                        "type": "string",
+                        "description": "Preferred language code (ISO 639-1)."
+                      },
+                      "location": {
+                        "type": "string",
+                        "description": "User's current geographical region or city."
+                      },
+                      "interests": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Topics, products, or services the user is interested in."
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              },
+              "description": "List of user profiles with attributes for AI-driven segmentation."
+            },
+            "segmentation_criteria": {
+              "type": "object",
+              "required": [
+                "age_range",
+                "location_filters",
+                "interest_filters",
+                "language_filters",
+                "intent_filters"
+              ],
+              "properties": {
+                "age_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "description": "Age range as [min_age, max_age], inclusive."
+                },
+                "intent_filters": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "learn",
+                      "invest",
+                      "collaborate",
+                      "subscribe",
+                      "demo",
+                      "support"
+                    ],
+                    "type": "string"
+                  },
+                  "description": "Types of user engagement for routing."
+                },
+                "interest_filters": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Relevant user interests (e.g., BrainRCM, DataLinc, SmartCityPlace)."
+                },
+                "language_filters": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "en",
+                      "ar",
+                      "fr",
+                      "es",
+                      "zh"
+                    ],
+                    "type": "string"
+                  },
+                  "description": "Target languages to filter by."
+                },
+                "location_filters": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Cities or regions to include in segmentation."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Intelligently segments users based on multi-criteria profiles and routes them to suitable BrainSAIT services, channels, or agents."
+      }
+    ],
+    "temperature": 1,
+    "max_output_tokens": 2048,
+    "top_p": 1,
+    "store": true
+  }

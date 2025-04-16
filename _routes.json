@@ -17,6 +17,10 @@
       "function": "api/chat/index"
     },
     {
+      "pattern": "/api/segment",
+      "function": "api/segment/index"
+    },
+    {
       "pattern": "/*",
       "middlewares": ["i18n"]
     },

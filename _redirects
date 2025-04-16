@@ -1,0 +1,17 @@
+# Redirect domain aliases to primary domain
+https://www.brainsait.io/* https://brainsait.io/:splat 301!
+
+# Optional: Redirect default Cloudflare Pages subdomain to your custom domain
+https://*.pages.dev/* https://brainsait.io/:splat 301!
+
+# Redirect domain sections
+/healthcare/* /domains/healthcare/:splat 200
+/ai-tech/* /domains/ai-tech/:splat 200
+/education/* /domains/education/:splat 200
+/finance/* /domains/finance/:splat 200
+/iot/* /domains/iot/:splat 200
+/automation/* /domains/automation/:splat 200
+/content-creation/* /domains/content-creation/:splat 200
+
+# SPA fallback
+/* /index.html 200

@@ -1,0 +1,22 @@
+{
+  "build": {
+    "baseDirectory": "build",
+    "command": "cp -r functions build/ && cp _headers build/ && cp _redirects build/ && cp _routes.json build/",
+    "publicDirectory": "build",
+    "rootDirectory": "."
+  },
+  "deployment": {
+    "routes": [
+      { "pattern": "/api/*", "function": "api/:splat" },
+      { "pattern": "/media/*", "function": "media/[[all]]" }
+    ],
+    "environment": {
+      "SITE_URL": "https://brainsait.io",
+      "DEFAULT_LANGUAGE": "ar"
+    }
+  },
+  "compatibility": {
+    "date": "2025-04-16",
+    "flags": ["nodejs_compat"]
+  }
+}
