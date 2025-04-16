@@ -1,11 +1,21 @@
-# Dependencies
-node_modules/
+﻿# Environment variables and secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
 
-# IDE files
-.vscode/
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# IDE and editor files
 .idea/
-*.sublime-workspace
+.vscode/
 *.sublime-project
+*.sublime-workspace
 
 # OS generated files
 .DS_Store
@@ -16,22 +26,6 @@ node_modules/
 ehthumbs.db
 Thumbs.db
 
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Debug logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Build files
-dist/
-build/
-out/
-
-# Cache
-.cache/
+# Log files
+logs/
+*.log
