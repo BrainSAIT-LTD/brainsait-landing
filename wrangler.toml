@@ -9,6 +9,9 @@ bucket_name = "brainsait-media"
 # Define environment variables here if needed
 [vars]
 SITE_URL = "https://brainsait.io"
+SUPABASE_URL = "${SUPABASE_URL}"
+SUPABASE_ANON_KEY = "${SUPABASE_ANON_KEY}"
+SUPABASE_SERVICE_KEY = "${SUPABASE_SERVICE_KEY}"
 AI_API_KEY = "${AI_API_KEY}"
 DEFAULT_LANGUAGE = "ar"
 ENABLE_ANALYTICS = "true"
